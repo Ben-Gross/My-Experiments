@@ -25,6 +25,7 @@ while ground == False:
     plane = [[1,2,3,4,5],[2,3,4,5,6],[3,4,5,6,7],[4,5,6,7,8],[5,6,7,8,9]]
     #plane = [[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5]]
     plane2 = list(list(plane))
+    lenx = len(plane)
     
     rowD = plane2.pop(torus(xpos-1,len(plane2)))
     rowL = plane2.pop(torus(xpos-1,len(plane2)))
@@ -34,6 +35,7 @@ while ground == False:
     print(rowU)
     print(rowR)
     print(rowD)
+    lenz = len(row)
     
     nU = rowU.pop(torus(zpos,len(rowU)))
     nD = rowD.pop(torus(zpos,len(rowD)))
@@ -81,6 +83,9 @@ while ground == False:
         if rchoice == -1:
             ground = True
             break
+        
+xpos = torus(xpos,lenx)
+zpos = torus(zpos,lenz)
 print(ground)
 print(xpos)
 print(zpos)
