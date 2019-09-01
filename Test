@@ -18,6 +18,8 @@ def boollist(x,target,app):
 
 xpos = 3
 zpos = 3
+xsave = xpos + 0
+zsave = zpos + 0
 ypos = 0
 ground = False
 xlis = []
@@ -88,8 +90,10 @@ while ground == False:
             break
     zlis.append(torus(zpos,lenz))
     xlis.append(torus(xpos,lenx))
+plt.plot(zsave,xsave, "b.")#,"b.")
 for i in range(len(zlis)):
-    plt.plot(zlis.pop(0),xlis.pop(0), "b.")
+    plt.plot(zlis.pop(0),xlis.pop(0), "b.")#, "b.")
+plt.axis([0,6,0,6])
 plt.show()
 xpos = torus(xpos,lenx)
 zpos = torus(zpos,lenz)
