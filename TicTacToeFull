@@ -1,0 +1,141 @@
+def repl2d(lis,x,y,n):
+    lis2 = []
+    lis2 += lis
+    ypos = lis.pop(y)
+    xpos = ypos.pop(x)
+    ypos.insert(x,n)
+    lis.insert(y,ypos)
+    return lis
+
+def compareWin(lis):
+    win = 0
+    lis0 = list(lis[0])
+    lis1 = list(lis[1])
+    lis2 = list(lis[2])
+    #draw condition
+    if lis0[0] != 0 and lis1[0] != 0 and lis2[0] != 0 and lis0[1] != 0 and lis1[1] != 0 and lis2[1] != 0 and lis0[2] != 0 and lis1[2] != 0 and lis2[2] != 0:
+        win = 5
+    #p1 horizontals:
+    if lis0 == [1,1,1] or lis1 == [1,1,1] or lis2 == [1,1,1]:
+        win = 1
+    #p2 horizontals:
+    if lis0 == [-1,-1,-1] or lis1 == [-1,-1,-1] or lis2 == [-1,-1,-1]:
+        win = -1
+    #p1 diagonals:
+    if lis0[0] == 1 and lis1[1] == 1 and lis2[2] == 1:
+        win = 1
+    if lis0[2] == 1 and lis1[1] == 1 and lis2[0] == 1:
+        win = 1
+    #p2 diagonals:
+    if lis0[0] == -1 and lis1[1] == -1 and lis2[2] == -1:
+        win = -1
+    if lis0[2] == -1 and lis1[1] == -1 and lis2[0] == -1:
+        win = -1
+    #p1 horizontals:
+    if lis0[0] == 1 and lis1[0] == 1 and lis2[0] == 1:
+        win = 1
+    if lis0[1] == 1 and lis1[1] == 1 and lis2[1] == 1:
+        win = 1
+    if lis0[2] == 1 and lis1[2] == 1 and lis2[2] == 1:
+        win = 1
+    #p2 horizontals:
+    if lis0[0] == -1 and lis1[0] == -1 and lis2[0] == -1:
+        win = -1
+    if lis0[1] == -1 and lis1[1] == -1 and lis2[1] == -1:
+        win = -1
+    if lis0[2] == -1 and lis1[2] == -1 and lis2[2] == -1:
+        win = -1
+    return win
+
+def display(lis):
+    lis0 = lis[0]
+    lis1 = lis[1]
+    lis2 = lis[2]
+    if lis0 == 1:
+        string0 = "O"
+    if lis0 == 0:
+        string0 = "-"
+    if lis0 == -1:
+        string0 = "X"
+    if lis1 == 1:
+        string1 = "O"
+    if lis1 == 0:
+        string1 = "-"
+    if lis1 == -1:
+        string1 = "X"
+    if lis2 == 1:
+        string2 = "O"
+    if lis2 == 0:
+        string2 = "-"
+    if lis2 == -1:
+        string2 = "X"
+    final = [string0,string1,string2]
+    return final
+board = [[0,0,0],[0,0,0],[0,0,0]]
+canMove = True
+validMove = False
+while canMove == True:
+        
+    validMove = False
+    print("Player 1's move:")
+    print("row 0:", display(board[0]))
+    print("row 1:", display(board[1]))
+    print("row 2:", display(board[2]))
+    while validMove == False:
+        p1movey = int(input("row:   "))
+        p1movex = int(input("column:   "))
+        if p1movey > 2 or p1movey < 0:
+            print("! invalid move")
+            continue
+        if p1movex > 2 or p1movex < 0:
+            print("! invalid move")
+            continue
+        if board[p1movey][p1movex] != 0:
+            print("! invalid move")
+            continue
+        board = repl2d(board,p1movex,p1movey,1)
+        validMove = True
+    win = compareWin(board)
+    if win == 1:
+        canMove = False
+        print("--------------")
+        print("Player 1 Wins!")
+        break
+    if win == 5:
+        canMove = False
+        print("--------------")
+        print("It is a Draw!")
+        break
+        
+    print("--------------")
+        
+    print("Player 2's move:")
+    print("row 0:", display(board[0]))
+    print("row 1:", display(board[1]))
+    print("row 2:", display(board[2]))
+    validMove = False
+    while validMove == False:
+        p2movey = int(input("row:   "))
+        p2movex = int(input("column:   "))
+        if p2movey > 2 or p2movey < 0:
+            print("! invalid move")
+            continue
+        if p2movex > 2 or p2movex < 0:
+            print("! invalid move")
+            continue
+        if board[p2movey][p2movex] != 0:
+            print("! invalid move")
+            continue
+        board = repl2d(board,p2movex,p2movey,-1)
+        validMove = True
+    win = compareWin(board)
+    if win == -1:
+        canMove = False
+        print("--------------")
+        print("Player 2 Wins!")
+        break
+    print("--------------")
+print("--------------")
+print("row 0:", display(board[0]))
+print("row 1:", display(board[1]))
+print("row 2:", display(board[2]))
